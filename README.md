@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# 一键换肤 demo
+本示例基于[ CSS var() ] (https://www.runoob.com/cssref/func-var.html])函数   
+及[ CSSStyleDeclaration setProperty() ] (https://www.runoob.com/jsref/obj-cssstyledeclaration.html) 方法实现前端一键换肤的功能
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 主题变量文件
+-  light.js
+```js
+    export default {
+        main_bg_color_0: 'rgba(255, 255, 255, .7)',
+        main_color_0: 'red'
+    };
+```
+-  dark.js
+```js
+        export default {
+            main_bg_color_0: 'rgba(0, 0, 0, .3)',
+            main_color_0: 'blue'
+        };
+```
+- 统一入口
+```js
+    import light from './light';
+    import dark from './dark';
 
-## Available Scripts
+    export default {light, dark}
+```
 
-In the project directory, you can run:
+### 主题切换
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+    export const setTheme = themeKey => {
+    const themeMap = theme[themeKey];
+    Object.keys(themeMap).map((key) => {
+      document.body.style.setProperty(`--${key}`, themeMap[key]);
+    })
+    // 实现兼容方案
+    cssVars({
+      watch: true, // 添加、删除、修改 <link> 或 <style> 元素的禁用或 href 属性时，ponyfill 将自行调用    
+      variables: themeMap, // variables 自定义属性名/值对的集合
+      onlyLegacy: false, // false  默认将 css 变量编译为浏览器识别的 css 样式 ；true 当浏览器不支持css变量的时候将css变量编译为识别的css  
+    });
+}
+```

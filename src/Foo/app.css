@@ -1,0 +1,7 @@
+
+.wrap {
+    background-color: var(--main_bg_color_0);
+    color: var(--main_color_0);
+    width: 200px;
+    height: 200px;
+}

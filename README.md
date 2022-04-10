@@ -1,6 +1,6 @@
 # 一键换肤 demo
-本示例基于[ CSS var() ] (https://www.runoob.com/cssref/func-var.html])函数   
-及[ CSSStyleDeclaration setProperty() ] (https://www.runoob.com/jsref/obj-cssstyledeclaration.html) 方法实现前端一键换肤的功能
+本示例基于[CSS var()](https://www.runoob.com/cssref/func-var.html])函数   
+及[CSSStyleDeclaration setProperty()](https://www.runoob.com/jsref/obj-cssstyledeclaration.html) 方法实现前端一键换肤的功能
 
 ### 主题变量文件
 -  light.js
